@@ -26,11 +26,19 @@ class pypubgi(object):
         return season
     
 
-    #async def stats(self , season , account_id) : 
-        #url = "https://api.pubg.com/shards/steam/players/{}/seasons/{}".format(account_id , season)
-    
-    
+    async def get_season_stats(self , season , account_id) : 
+        url = "https://api.pubg.com/shards/steam/players/{}/seasons/{}".format(account_id , season)
+        dictionnaire = await.self.request(url)
+        return dictionnaire
+    async def get_season_ranked_stats(self , season , account_id):
+        url = "https://api.pubg.com/shards/steam/players/{}/seasons/{}/ranked".format(account_id,season)
+        dictionary = await.self.request(url)
+        return dictionary
+            
+
     async def id_from_username(self , username) : 
         url = "https://api.pubg.com/shards/steam/players?filter[playerNames]={}".format(username)
         _id = dict(await self.request(url)).get("data")[0].get("id")
         return _id
+    async def get_lifetime_stats(self,account_id) : 
+        url = "https://api.pubg.com/shards/steam/players/{}/seasons/lifetime".format(account_id)
